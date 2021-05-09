@@ -52,6 +52,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
 
+    def pagingVersion = "3.0.0"
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
 

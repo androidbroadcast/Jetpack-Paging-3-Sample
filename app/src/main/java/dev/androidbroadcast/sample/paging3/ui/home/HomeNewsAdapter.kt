@@ -6,18 +6,17 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
-import dev.androidbroadcast.sample.paging3.data.model.Article
 import dev.androidbroadcast.sample.paging3.R
+import dev.androidbroadcast.sample.paging3.data.model.Article
 import dev.androidbroadcast.sample.paging3.databinding.ItemNewsBinding
 
-class HomeNewsAdapter(context: Context) : ListAdapter<Article, HomeNewsViewHolder>(
-    ArticleDiffItemCallback
-) {
+class HomeNewsAdapter(context: Context) :
+    PagingDataAdapter<Article, HomeNewsViewHolder>(ArticleDiffItemCallback) {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -34,12 +33,12 @@ class HomeNewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val viewBinding by viewBinding(ItemNewsBinding::bind)
 
-    fun bind(article: Article) {
+    fun bind(article: Article?) {
         with(viewBinding) {
-            image.load(article.urlToImage) {
+            image.load(article?.urlToImage) {
                 placeholder(ColorDrawable(Color.TRANSPARENT))
             }
-            title.text = article.title
+            title.text = article?.title
         }
     }
 }

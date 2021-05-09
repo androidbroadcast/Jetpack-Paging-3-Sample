@@ -1,6 +1,7 @@
 package dev.androidbroadcast.sample.paging3.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
@@ -9,10 +10,10 @@ import androidx.lifecycle.addRepeatingJob
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import dev.androidbroadcast.sample.paging3.appComponent
 import dev.androidbroadcast.sample.paging3.R
+import dev.androidbroadcast.sample.paging3.appComponent
 import dev.androidbroadcast.sample.paging3.databinding.ActivityHomeBinding
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -40,13 +41,14 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             }
         }
 
-        viewModel.news
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach(adapter::submitList)
-            .launchIn(lifecycleScope)
+        addRepeatingJob(Lifecycle.State.STARTED) {
+            viewModel.news
+                .onEach { Log.d("HomeActivity-2", it.toString()) }
+                .collectLatest(adapter::submitData)
+        }
 
         viewModel.query
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
             .onEach(::updateSearchQuery)
             .launchIn(lifecycleScope)
     }

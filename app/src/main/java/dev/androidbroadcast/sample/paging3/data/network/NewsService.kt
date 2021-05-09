@@ -25,9 +25,9 @@ interface NewsService {
      */
     @GET("/v2/everything")
     suspend fun everything(
-        @Query("q") query: String,
+        @Query("q") query: String? = null,
         @Query("page") @IntRange(from = 1) page: Int = 1,
-        @Query("pageSize") @IntRange(from = 1, to = 100) pageSize: Int = DEFAULT_PAGE_SIZE,
+        @Query("pageSize") @IntRange(from = 1, to = MAX_PAGE_SIZE.toLong()) pageSize: Int = DEFAULT_PAGE_SIZE,
         @Query("qInTitle") queryInBody: String? = null,
         @Query("sources") sources: String? = null,
         @Query("domains") domains: String? = null,
@@ -75,5 +75,6 @@ interface NewsService {
     companion object {
 
         const val DEFAULT_PAGE_SIZE = 20
+        const val MAX_PAGE_SIZE = 20
     }
 }
