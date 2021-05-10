@@ -3,11 +3,11 @@ package dev.androidbroadcast.sample.paging3.data.storage.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Query
 
 @Entity(tableName = "articles")
 data class ArticleDbo(
     @PrimaryKey @ColumnInfo(name = "id") val id: Long,
-    @ColumnInfo(name = "sourceId") val sourceId: Long,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "url") val url: String?,
     @ColumnInfo(name = "description") val description: String?,
@@ -15,4 +15,5 @@ data class ArticleDbo(
     @ColumnInfo(name = "urlToImage") val urlToImage: String?,
     @ColumnInfo(name = "publishedAt") val publishedAt: String?,
     @ColumnInfo(name = "content") val content: String?,
+    @ColumnInfo(name = "query") val query: String?,
 )

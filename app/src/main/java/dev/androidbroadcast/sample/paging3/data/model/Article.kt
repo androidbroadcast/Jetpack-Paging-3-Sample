@@ -1,7 +1,6 @@
 package dev.androidbroadcast.sample.paging3.data.model
 
 data class Article(
-    val source: Source?,
     val title: String,
     val url: String?,
     val description: String?,

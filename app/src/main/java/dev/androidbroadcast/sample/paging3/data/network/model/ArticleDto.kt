@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ArticleDto(
-    @SerialName("source") val source: SourceDto? = null,
     @SerialName("title") val title: String = "",
     @SerialName("url") val url: String? = null,
     @SerialName("description") val description: String? = null,
