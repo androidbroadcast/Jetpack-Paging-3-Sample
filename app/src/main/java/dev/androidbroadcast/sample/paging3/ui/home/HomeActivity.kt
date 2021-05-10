@@ -1,7 +1,6 @@
 package dev.androidbroadcast.sample.paging3.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
@@ -35,7 +34,10 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         appComponent.inject(this)
         super.onCreate(savedInstanceState)
         with(viewBinding) {
-            news.adapter = adapter
+            news.adapter = adapter.withLoadStateHeaderAndFooter(
+                header = NewsLoaderStateAdapter(),
+                footer = NewsLoaderStateAdapter()
+            )
             query.doAfterTextChanged { text ->
                 viewModel.setQuery(text?.toString() ?: "")
             }
@@ -43,7 +45,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
         addRepeatingJob(Lifecycle.State.STARTED) {
             viewModel.news
-                .onEach { Log.d("HomeActivity-2", it.toString()) }
                 .collectLatest(adapter::submitData)
         }
 
