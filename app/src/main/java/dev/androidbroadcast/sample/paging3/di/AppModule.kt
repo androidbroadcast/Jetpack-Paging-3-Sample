@@ -1,16 +1,14 @@
 package dev.androidbroadcast.sample.paging3.di
 
 import android.app.Application
-import androidx.room.Room
 import coil.ImageLoader
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
-import dev.androidbroadcast.sample.paging3.Dispatchers
 import dev.androidbroadcast.sample.paging3.BuildConfig
+import dev.androidbroadcast.sample.paging3.Dispatchers
 import dev.androidbroadcast.sample.paging3.data.network.AuthInterceptor
 import dev.androidbroadcast.sample.paging3.data.network.NewsService
-import dev.androidbroadcast.sample.paging3.data.storage.NewsDatabase
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -19,13 +17,6 @@ import javax.inject.Singleton
 
 @Module
 object AppModule {
-
-    @Singleton
-    @Provides
-    fun provideNewsDatabase(application: Application): NewsDatabase {
-        return Room.databaseBuilder(application, NewsDatabase::class.java, "news")
-            .build()
-    }
 
     @Provides
     @Singleton
