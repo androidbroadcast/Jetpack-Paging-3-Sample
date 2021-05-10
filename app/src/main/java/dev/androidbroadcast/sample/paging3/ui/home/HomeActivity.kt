@@ -3,11 +3,13 @@ package dev.androidbroadcast.sample.paging3.ui.home
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.addRepeatingJob
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dev.androidbroadcast.sample.paging3.R
 import dev.androidbroadcast.sample.paging3.appComponent
@@ -40,6 +42,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             )
             query.doAfterTextChanged { text ->
                 viewModel.setQuery(text?.toString() ?: "")
+            }
+        }
+
+        adapter.addLoadStateListener { state ->
+            with(viewBinding) {
+                news.isVisible = state.refresh != LoadState.Loading
+                progress.isVisible = state.refresh == LoadState.Loading
             }
         }
 
