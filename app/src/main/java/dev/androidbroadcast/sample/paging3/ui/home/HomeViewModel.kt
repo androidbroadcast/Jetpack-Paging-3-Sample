@@ -29,7 +29,6 @@ class HomeViewModel @Inject constructor(
 
     private fun newPager(query: String): Pager<Int, Article> {
         return Pager(PagingConfig(5, enablePlaceholders = false)) {
-            newPagingSource?.invalidate()
             val queryNewsUseCase = queryNewsUseCaseProvider.get()
             queryNewsUseCase(query).also { newPagingSource = it }
         }
